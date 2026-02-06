@@ -1,0 +1,233 @@
+# 👥 Customer Segmentation Analysis
+
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+
+> **Using RFM analysis and K-Means clustering to segment customers and create targeted marketing strategies.**
+
+![Clustering Results](images/customer_segments.png)
+
+---
+
+## 🎯 Project Goal
+
+Segment customers based on their purchasing behavior to:
+- Identify high-value customers
+- Create personalized marketing campaigns
+- Reduce customer churn
+- Optimize marketing budget allocation
+
+---
+
+## 📊 Methodology
+
+### RFM Analysis
+**R**ecency - How recently did the customer purchase?  
+**F**requency - How often do they purchase?  
+**M**onetary - How much do they spend?
+
+### K-Means Clustering
+Group customers into segments based on RFM scores
+
+---
+
+## 📁 Dataset
+
+**Source:** Online Retail Dataset  
+**Customers:** 4,372 unique customers  
+**Metrics Analyzed:** Purchase recency, frequency, monetary value
+
+---
+
+## 🔍 Analysis Process
+
+### 1. Data Preparation (SQL)
+```sql
+-- Calculate RFM metrics
+SELECT 
+    CustomerID,
+    DATEDIFF(day, MAX(InvoiceDate), '2011-12-31') as Recency,
+    COUNT(DISTINCT InvoiceNo) as Frequency,
+    SUM(Quantity * UnitPrice) as Monetary
+FROM sales_data
+GROUP BY CustomerID;
+```
+
+### 2. RFM Scoring (Python)
+```python
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+# Normalize RFM values
+scaler = StandardScaler()
+rfm_scaled = scaler.fit_transform(rfm_df)
+
+# Apply K-Means clustering
+kmeans = KMeans(n_clusters=4, random_state=42)
+rfm_df['Cluster'] = kmeans.fit_predict(rfm_scaled)
+```
+
+### 3. Customer Segments Identified
+
+| Segment | Characteristics | Marketing Strategy |
+|---------|----------------|-------------------|
+| **Champions** | Recent buyers, frequent purchases, high spend | VIP rewards, early access |
+| **Loyal Customers** | Regular purchases, moderate spend | Loyalty program, upsell |
+| **At Risk** | Haven't purchased recently, used to spend well | Re-engagement campaign |
+| **Lost Customers** | Long time since purchase | Win-back offers |
+
+---
+
+## 📈 Key Findings
+
+### 🏆 Customer Distribution
+- **Champions:** 15% (£3.2M revenue)
+- **Loyal Customers:** 35% (£4.1M revenue)
+- **At Risk:** 28% (£1.8M revenue)
+- **Lost Customers:** 22% (£0.6M revenue)
+
+### 💰 Revenue Impact
+- Top 15% customers generate 35% of revenue
+- 28% of customers are at risk of churning
+- Win-back potential: £1.8M from at-risk segment
+
+### 📊 Behavioral Patterns
+- Champions purchase every 23 days on average
+- Lost customers haven't purchased in 180+ days
+- Loyal customers have 8+ lifetime orders
+
+---
+
+## 💡 Recommendations
+
+### For Champions (15%)
+✅ **Exclusive benefits:** Early access to new products  
+✅ **Personal touch:** Thank you notes, birthday offers  
+✅ **Referral program:** Incentivize bringing new customers  
+
+### For Loyal Customers (35%)
+✅ **Points program:** Reward repeat purchases  
+✅ **Bundling:** Offer product bundles at discount  
+✅ **Feedback:** Ask for reviews and testimonials  
+
+### For At-Risk (28%)
+✅ **Re-engagement:** Email with special discount  
+✅ **Surveys:** Understand why they stopped buying  
+✅ **Limited time offers:** Create urgency to return  
+
+### For Lost Customers (22%)
+✅ **Win-back campaign:** Aggressive discounts  
+✅ **New product showcase:** Show what they've missed  
+✅ **Easy return:** Remove friction from comeback  
+
+---
+
+## 📂 Project Structure
+
+```
+project2-customer-analysis/
+├── data/
+│   └── customer_data.csv
+├── python/
+│   └── rfm_clustering.py
+├── sql/
+│   └── rfm_queries.sql
+├── images/
+│   ├── customer_segments.png
+│   └── rfm_distribution.png
+└── README.md
+```
+
+---
+
+## 🚀 How to Run
+
+### SQL Analysis
+```sql
+-- Run queries in your SQL environment
+-- File: sql/rfm_queries.sql
+```
+
+### Python Analysis
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn
+python python/rfm_clustering.py
+```
+
+---
+
+## 📊 Visualizations
+
+### Customer Segments
+![Segments](images/customer_segments.png)
+
+### RFM Distribution
+![RFM](images/rfm_distribution.png)
+
+---
+
+## 🎓 Skills Demonstrated
+
+✅ SQL query writing and aggregation  
+✅ RFM analysis methodology  
+✅ Data normalization and scaling  
+✅ K-Means clustering algorithm  
+✅ Customer behavior analysis  
+✅ Marketing strategy development  
+
+---
+
+## 📧 Contact
+
+**Divya Mishra**  
+📧 divyamishrabt24@gmail.com  
+💼 [LinkedIn](https://linkedin.com/in/divya-mishra)  
+🐙 [GitHub](https://github.com/divya-mishra-analyst)
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+**⭐ Star this repo if you found it useful!**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
